@@ -234,7 +234,7 @@ public extension Int {
     }
 }
 
-extension Sequence {
+public extension Sequence {
     func recursiveFlatMap<T, TResult>(root: T, transform: @escaping (T) -> TResult?, children: @escaping (T) -> [T]) -> [TResult] {
         var result = [TResult]()
         if let value = transform(root) {
@@ -246,7 +246,7 @@ extension Sequence {
     
 }
 
-func sequentialFlatten<S : Sequence>(seq : S, children : @escaping (S.Iterator.Element) -> S) -> AnySequence<S.Iterator.Element> {
+public func sequentialFlatten<S : Sequence>(seq : S, children : @escaping (S.Iterator.Element) -> S) -> AnySequence<S.Iterator.Element> {
     return AnySequence {
         () -> AnyIterator<S.Iterator.Element> in
         

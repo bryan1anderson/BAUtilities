@@ -290,11 +290,11 @@ public func cropImageToSquare(image: UIImage?) -> UIImage? {
 }
 
 extension UIAlertAction {
-    static let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+    public static let cancel = UIAlertAction(title: "Cancel", style: .cancel)
 }
 
 
-extension UIView {
+public extension UIView {
 
     class func animate(withDuration duration: TimeInterval, delay: Double = 0, dampingRatio: CGFloat, options: UIView.AnimationOptions, animations: @escaping () -> Void, completion: ((Bool) -> Void)?) {
          UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: dampingRatio, initialSpringVelocity: 1, options: options, animations: animations, completion: completion)
@@ -664,17 +664,17 @@ public protocol KeyboardLayoutProtocol {
 
 extension KeyboardLayoutProtocol where Self: UIViewController {
     
-    func addKeyboardObservers() {
+    public func addKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateKeyboardConstraint(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateKeyboardConstraint(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    func removeKeyboardObservers() {
+    public func removeKeyboardObservers() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    func updateBottomLayoutConstraint(with notification: Notification, completion: ((_ completed: Bool) -> ())? = nil) {
+    public func updateBottomLayoutConstraint(with notification: Notification, completion: ((_ completed: Bool) -> ())? = nil) {
         
         let userInfo = notification.userInfo!
         

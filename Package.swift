@@ -16,6 +16,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
 //    .package(url: "https://github.com/Adorkable-forkable/Closures/tree/SwiftPM.git", bra: "0.6")
+        .package(url: "https://github.com/MatthewYork/DateTools", from: "4.0.0"),
         .package(url: "https://github.com/Adorkable-forkable/Closures", .branch("SwiftPM")),
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON", from: "5.0.0"),
         .package(url: "https://github.com/realm/realm-cocoa", from: "3.17.3"),
@@ -30,7 +31,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "EMUtilities",
-            dependencies: ["Closures", "SwiftyJSON", "RealmSwift", "PromiseKit", "Alamofire", "Files"]),
+            dependencies: ["Closures", "SwiftyJSON", "RealmSwift", "PromiseKit", "Alamofire", "Files", "DateToolsSwift"]),
         .testTarget(
             name: "EMUtilitiesTests",
             dependencies: ["EMUtilities"]),

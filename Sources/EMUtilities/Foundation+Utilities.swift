@@ -8,7 +8,7 @@
 
 import Foundation
 
-func print(typeOf: Any...) {
+public func print(typeOf: Any...) {
     print(typeOf.map({String(describing: type(of: $0))}))
 }
 

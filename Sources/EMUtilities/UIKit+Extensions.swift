@@ -12,6 +12,74 @@ import Nuke
 import CoreMedia
 import Closures
 
+public extension UIScrollView {
+    static func createStackScrollView(viewController: UIViewController, stackView: UIStackView) -> UIScrollView {
+        
+    
+        let scrollView = UIScrollView()
+        //        scrollView.backgroundColor = .black
+        
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let view = viewController.view!
+//        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        view.bringSubviewToFront(scrollView)
+        
+        let topAnchor: NSLayoutYAxisAnchor
+
+        let safeGuide = view.safeAreaLayoutGuide
+        topAnchor =  safeGuide.topAnchor
+        //        self.edgesForExtendedLayout = [.bottom]
+        scrollView.contentInsetAdjustmentBehavior = .always
+        
+        scrollView.frame.origin.y += 200
+        
+        scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        
+        if #available(iOS 11.0, *) {
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        } else {
+            scrollView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+        }
+        
+        stackView.removeFromSuperview()
+        scrollView.addSubview(stackView)
+        stackView.removeConstraints(stackView.constraints)
+        stackView.frame = scrollView.frame
+        scrollView.bringSubviewToFront(stackView)
+        //
+        let stackLeft = NSLayoutConstraint(item: stackView, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: scrollView, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 0)
+        let stackRight = NSLayoutConstraint(item: stackView, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: scrollView, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: 0)
+        let stackTop = NSLayoutConstraint(item: stackView, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: scrollView, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 0)
+        //
+        
+        var safeLayoutHeight: CGFloat = 0
+        if #available(iOS 11, *) {
+            let guide = view.safeAreaLayoutGuide
+            let height = guide.layoutFrame.origin.y
+            safeLayoutHeight = height
+        }
+        let stackBottom = NSLayoutConstraint(item: scrollView, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: stackView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: safeLayoutHeight)
+        
+        let stackWidth = NSLayoutConstraint(item: stackView, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: scrollView, attribute: NSLayoutConstraint.Attribute.width, multiplier: 1, constant: 0)
+        //
+        let stackConstraints = [stackLeft, stackRight, stackTop, stackBottom, stackWidth]
+        scrollView.addConstraints(stackConstraints)
+        NSLayoutConstraint.activate(stackConstraints)
+        view.layoutIfNeeded()
+        view.layer.layoutIfNeeded()
+        
+        //        scrollView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[stackView]|", options: NSLayoutFormatOptions.alignAllCenterX, metrics: nil, views: ["stackView": stackView]))
+        //        scrollView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[stackView]", options: NSLayoutFormatOptions.alignAllCenterX, metrics: nil, views: ["stackView": stackView]))
+        return scrollView
+    }
+
+}
+
+
 public extension UISearchBar {
     
     private func getViewElement<T>(type: T.Type) -> T? {
@@ -474,7 +542,7 @@ public extension UITableView {
         
     func register(nibClass: UITableViewCell.Type) {
         let name = String(describing: nibClass)
-        register(UINib(nibName: name, bundle: nil), forCellReuseIdentifier: name)
+        register(UINib(nibName: name, bundle: Bundle(for: nibClass)), forCellReuseIdentifier: name)
     }
 
     
@@ -484,7 +552,7 @@ public extension UICollectionView {
     
     func register(nibClass: UICollectionViewCell.Type) {
         let name = String(describing: nibClass)
-        register(UINib(nibName: name, bundle: nil), forCellWithReuseIdentifier: name)
+        register(UINib(nibName: name, bundle: Bundle(for: nibClass)), forCellWithReuseIdentifier: name)
     }
 }
 
@@ -654,51 +722,6 @@ public extension UISlider {
     
 }
 
-
-@objc
-public protocol KeyboardLayoutProtocol {
-    @objc optional func updateBottomLayoutConstraint(with notification: Notification)
-    weak var keyboardViewHeight: NSLayoutConstraint! { get set }
-    func updateKeyboardConstraint(notification: Notification)
-}
-
-extension KeyboardLayoutProtocol where Self: UIViewController {
-    
-    public func addKeyboardObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.updateKeyboardConstraint(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.updateKeyboardConstraint(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    public func removeKeyboardObservers() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    public func updateBottomLayoutConstraint(with notification: Notification, completion: ((_ completed: Bool) -> ())? = nil) {
-        
-        let userInfo = notification.userInfo!
-        
-        let animationDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        let keyboardEndFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let convertedKeyboardEndFrame = view.convert(keyboardEndFrame, from: view.window)
-        let rawAnimationCurve = (notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! NSNumber).uint32Value << 16
-        let animationCurve = UIView.AnimationOptions(rawValue: UInt(rawAnimationCurve))
-        
-        //        let userInfo:NSDictionary = notification.userInfo!
-        //        let keyboardFrame:NSValue = userInfo.valueForKey(UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
-        //        let keyboardRectangle = keyboardFrame.CGRectValue()
-        //        let keyboardHeight = keyboardRectangle.height
-        
-        keyboardViewHeight.constant = view.bounds.maxY - convertedKeyboardEndFrame.minY
-        
-        UIView.animate(withDuration: animationDuration, delay: 0.0, options: [UIView.AnimationOptions.beginFromCurrentState, animationCurve], animations: {
-            self.view.layoutIfNeeded()
-        }, completion: {
-            (value: Bool) in
-            completion?(value)
-        })
-    }
-}
 
 
 

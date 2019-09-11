@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "EMUtilities",
-    platforms: [.iOS(.v13)],
+    platforms: [.iOS(.v13), .macOS(.v10_15)],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
@@ -23,9 +23,8 @@ let package = Package(
         .package(url: "https://github.com/mxcl/PromiseKit", from: "6.10.0"),
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.0.0-beta.6"),
         .package(url: "https://github.com/JohnSundell/Files", from: "3.1.0"),
-        .package(url: "https://github.com/tonyarnold/Differ", from: "1.4.3"),
+        .package(url: "https://github.com/tonyarnold/Differ", .branch("master")),
         .package(url: "https://github.com/sersoft-gmbh/Zip", .branch("spm_support"))
-
 
     ],
     targets: [

@@ -274,7 +274,7 @@ private func collectAndEncryptLogs() {
 
 public enum DataError: Error {
     case failure(String)
-    case failed(response: (DataResponse<Any>))
+    case failed(response: AFDataResponse<Any>)
     case failedResponse(Error)
     case jsonNil(String)
     case missingValue(String)

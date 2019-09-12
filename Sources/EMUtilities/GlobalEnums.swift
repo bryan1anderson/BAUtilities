@@ -49,6 +49,7 @@ extension Notification.Name {
     public static let appointmentCreated = Notification.Name("appointment-created")
     public static let shouldUpdatePlannerDay = Notification.Name("should-update-planner-day")
     public static let locationPermissionStatusUpdated = Notification.Name("location-permission-status-updated")
+    public static let addressStatusUpdated = Notification.Name("address-status-updated")
 }
 
 public enum UserDefaultsKey: String {

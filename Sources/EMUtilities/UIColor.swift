@@ -34,6 +34,29 @@ public extension UIColor {
 
 public extension UIColor {
     
+    class var emLabel: UIColor {
+        if #available(iOS 13.0, *) {
+            return .label
+        } else {
+            return .darkText
+        }
+    }
+    class var emSecondaryLabel: UIColor {
+        if #available(iOS 13.0, *) {
+            return .secondaryLabel
+        } else {
+            return .dvWarmGrey
+        }
+    }
+    
+    class var emSecondarySystemFill: UIColor {
+        if #available(iOS 13.0, *) {
+               return .secondarySystemFill
+           } else {
+               return .lightGray
+           }
+    }
+
     class var lgLightGray: UIColor {
         return UIColor(red:0.8, green:0.8, blue:0.8, alpha:1.0)
     }

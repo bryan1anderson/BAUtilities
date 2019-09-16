@@ -554,6 +554,13 @@ public extension UICollectionView {
         let name = String(describing: nibClass)
         register(UINib(nibName: name, bundle: Bundle(for: nibClass)), forCellWithReuseIdentifier: name)
     }
+
+    func register(nibClass: UICollectionReusableView.Type, forSupplementaryViewOfKind kind: String) {
+        let name = String(describing: nibClass)
+
+        register(UINib(nibName: name, bundle: Bundle(for: nibClass)), forSupplementaryViewOfKind: kind, withReuseIdentifier: name)
+    }
+
 }
 
 public protocol CellResuseable {
@@ -566,7 +573,13 @@ extension UITableViewCell: CellResuseable {
     }
 }
 
-extension UICollectionViewCell: CellResuseable {
+//extension UICollectionViewCell: CellResuseable {
+//    public static var identifier: String {
+//        return String(describing: self)
+//    }
+//}
+
+extension UICollectionReusableView: CellResuseable {
     public static var identifier: String {
         return String(describing: self)
     }
@@ -575,6 +588,15 @@ extension UICollectionViewCell: CellResuseable {
 public extension UICollectionView {
     func dequeueReseuableCell<T: UICollectionViewCell>(indexPath: IndexPath) -> T where T: CellResuseable {
         guard let cell = self.dequeueReusableCell(withReuseIdentifier: T.identifier, for: indexPath) as? T else {
+            fatalError("Couldn't instantiate cell with identifier \(T.identifier) ")
+        }
+        
+        return cell
+    }
+    
+    func dequeueReseuableView<T: UICollectionReusableView>(indexPath: IndexPath, ofKind kind: String) -> T where T: CellResuseable {
+        
+        guard let cell = dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: T.identifier, for: indexPath) as? T else {
             fatalError("Couldn't instantiate cell with identifier \(T.identifier) ")
         }
         

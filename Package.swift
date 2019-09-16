@@ -24,7 +24,9 @@ let package = Package(
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.0.0-beta.6"),
         .package(url: "https://github.com/JohnSundell/Files", from: "3.1.0"),
         .package(url: "https://github.com/tonyarnold/Differ", .branch("master")),
-        .package(url: "https://github.com/sersoft-gmbh/Zip", .branch("spm_support"))
+        .package(url: "https://github.com/sersoft-gmbh/Zip", .branch("spm_support")),
+        .package(url: "https://github.com/kean/Nuke", from: "8.0.1"),
+        .package(url: "https://github.com/utahiosmac/Marshal", from: "1.2.8")
 
     ],
     targets: [
@@ -32,7 +34,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "EMUtilities",
-            dependencies: ["Closures", "SwiftyJSON", "RealmSwift", "PromiseKit", "Alamofire", "Files", "DateToolsSwift", "Zip", "Differ"]),
+            dependencies: ["Closures", "SwiftyJSON", "RealmSwift", "PromiseKit", "Alamofire", "Files", "DateToolsSwift", "Zip", "Differ", "Nuke", "Marshal"]),
         .testTarget(
             name: "EMUtilitiesTests",
             dependencies: ["EMUtilities"]),

@@ -19,7 +19,7 @@ let package = Package(
         .package(url: "https://github.com/maniramezan/DateTools", .branch("swiftpm_support")),
         .package(url: "https://github.com/Adorkable-forkable/Closures", .branch("SwiftPM")),
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON", from: "5.0.0"),
-        .package(url: "https://github.com/realm/realm-cocoa", from: "3.17.3"),
+        .package(url: "https://github.com/realm/realm-cocoa.git", from: "3.19.0"),
         .package(url: "https://github.com/mxcl/PromiseKit", from: "6.10.0"),
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.0.0-beta.6"),
         .package(url: "https://github.com/JohnSundell/Files", from: "3.1.0"),

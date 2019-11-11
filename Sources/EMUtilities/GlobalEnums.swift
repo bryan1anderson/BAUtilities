@@ -10,6 +10,22 @@ import Foundation
 import UIKit
 import Alamofire
 
+public enum NotificationCategory: String {
+    case canvassRecommendation = "canvass_recommendation"
+    case area
+    case zendeskSupport = "zendesk_support"
+    case accountStageUpdate = "account_stage_update"
+    case list
+    
+    public init(userInfo: [AnyHashable : Any]) throws {
+        guard let aps = userInfo["aps"] as? [AnyHashable : Any],
+            let raw = aps["category"] as? String,
+            let type = NotificationCategory(rawValue: raw)
+            else { throw DataError.failedInit("NotificationCategory.init.userInfo")}
+        self = type
+    }
+}
+
 public enum CanvassError: Error {
     case noInteractionTypesInCollectionView
     case failedToIntializeInteractionsFromAPI
@@ -51,6 +67,7 @@ extension Notification.Name {
     public static let locationPermissionStatusUpdated = Notification.Name("location-permission-status-updated")
     public static let addressStatusUpdated = Notification.Name("address-status-updated")
     public static let accountSnoozeUpdated = Notification.Name("account-snooze-updated")
+    public static let receivedNotification = Notification.Name("received-notification")
 }
 
 public enum UserDefaultsKey: String {

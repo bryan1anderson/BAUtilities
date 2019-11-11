@@ -8,6 +8,48 @@
 
 import Foundation
 
+public extension Date {
+    func timeAgoDisplay() -> String {
+
+        let calendar = Calendar.current
+        let minuteAgo = calendar.date(byAdding: .minute, value: -1, to: Date())!
+        let hourAgo = calendar.date(byAdding: .hour, value: -1, to: Date())!
+        let dayAgo = calendar.date(byAdding: .day, value: -1, to: Date())!
+        let weekAgo = calendar.date(byAdding: .day, value: -7, to: Date())!
+
+        if minuteAgo < self {
+            let diff = Calendar.current.dateComponents([.second], from: self, to: Date()).second ?? 0
+            if diff == 1 {
+                return "\(diff) second"
+            }
+            return "\(diff) seconds"
+        } else if hourAgo < self {
+            let diff = Calendar.current.dateComponents([.minute], from: self, to: Date()).minute ?? 0
+            if diff == 1 {
+                return "\(diff) minute"
+            }
+            return "\(diff) minutes"
+        } else if dayAgo < self {
+            let diff = Calendar.current.dateComponents([.hour], from: self, to: Date()).hour ?? 0
+            if diff == 1 {
+                return "\(diff) hour"
+            }
+            return "\(diff) hours"
+        } else if weekAgo < self {
+            let diff = Calendar.current.dateComponents([.day], from: self, to: Date()).day ?? 0
+            if diff == 1 {
+                return "\(diff) day"
+            }
+            return "\(diff) days"
+        }
+        let diff = Calendar.current.dateComponents([.weekOfYear], from: self, to: Date()).weekOfYear ?? 0
+        if diff == 1 {
+            return "\(diff) week"
+        }
+        return "\(diff) weeks"
+    }
+}
+
 public extension Sequence {
     func group<U: Hashable>(by key: (Iterator.Element) -> U) -> [U:[Iterator.Element]] {
         var categories: [U: [Iterator.Element]] = [:]

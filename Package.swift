@@ -20,13 +20,15 @@ let package = Package(
         .package(url: "https://github.com/Adorkable-forkable/Closures", .branch("SwiftPM")),
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON", from: "5.0.0"),
         .package(url: "https://github.com/realm/realm-cocoa.git", from: "3.19.0"),
-        .package(url: "https://github.com/mxcl/PromiseKit", from: "6.10.0"),
+        .package(url: "https://github.com/mxcl/PromiseKit", .branch("v7")),
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.0.0-beta.6"),
         .package(url: "https://github.com/JohnSundell/Files", from: "3.1.0"),
         .package(url: "https://github.com/tonyarnold/Differ", .branch("master")),
         .package(url: "https://github.com/sersoft-gmbh/Zip", .branch("spm_support")),
         .package(url: "https://github.com/kean/Nuke", from: "8.0.1"),
-        .package(url: "https://github.com/utahiosmac/Marshal", from: "1.2.8")
+        .package(url: "https://github.com/utahiosmac/Marshal", from: "1.2.8"),
+//        .package(url: "https://github.com/ninjaprox/NVActivityIndicatorView", from: "4.8.0"),
+        .package(url: "https://github.com/marcosgriselli/ViewAnimator", from: "2.7.0"),
 
     ],
     targets: [

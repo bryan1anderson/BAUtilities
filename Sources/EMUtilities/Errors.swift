@@ -40,15 +40,15 @@ var errorHandlingType: ErrorHandlingType = .printEverythingButOptionals
 func print(error: Error) {
     print("🔥\(error)")
     
-    do {
-        let realm = try Realm()
-        try realm.write {
-            let errorObject = ErrorObject(description: "🔥\(error)")
-            realm.add(errorObject)
-        }
-    } catch {
-        print(error)
-    }
+//    do {
+//        let realm = try Realm()
+//        try realm.write {
+//            let errorObject = ErrorObject(description: "🔥\(error)")
+//            realm.add(errorObject)
+//        }
+//    } catch {
+//        print(error)
+//    }
 
 }
 
@@ -129,13 +129,13 @@ public class ErrorManager {
     }
     
     public func clearOldRecords() throws {
-        let realm = try Realm()
-        let objects = realm.objects(ErrorObject.self)
-        let olderObjects = objects.filter({$0.created.days(from: Date()) > 15 })
-        
-        try realm.write {
-            realm.delete(olderObjects)
-        }
+//        let realm = try Realm()
+//        let objects = realm.objects(ErrorObject.self)
+//        let olderObjects = objects.filter({$0.created.days(from: Date()) > 15 })
+//        
+//        try realm.write {
+//            realm.delete(olderObjects)
+//        }
     }
     
     /// Think twice before changing this! If you forget what it was, you won't be able to access former logs

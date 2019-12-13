@@ -107,31 +107,6 @@ public extension Int {
     }
 }
 
-public struct CodingWrapper<Wrapped>: Codable where Wrapped: NSCoding {
-    public var wrapped: Wrapped
-    
-    public init(_ wrapped: Wrapped) { self.wrapped = wrapped }
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        let data = try container.decode(Data.self)
-        guard let object = NSKeyedUnarchiver.unarchiveObject(with: data) else {
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "failed to unarchive an object")
-        }
-        guard let wrapped = object as? Wrapped else {
-            throw DecodingError.typeMismatch(Wrapped.self, DecodingError.Context(codingPath: container.codingPath, debugDescription: "unarchived object type was \(type(of: object))"))
-        }
-        self.wrapped = wrapped
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        let data = NSKeyedArchiver.archivedData(withRootObject: wrapped)
-        var container = encoder.singleValueContainer()
-        try container.encode(data)
-    }
-}
-
-
 public extension Int {
     var withCommas: String {
         let numberFormatter = NumberFormatter()
@@ -253,7 +228,7 @@ public protocol EnumCollection: Hashable {
 
 public extension EnumCollection {
     
-    public static func cases() -> AnySequence<Self> {
+    static func cases() -> AnySequence<Self> {
         return AnySequence { () -> AnyIterator<Self> in
             var raw = 0
             return AnyIterator {
@@ -267,23 +242,23 @@ public extension EnumCollection {
         }
     }
     
-    public static var allValues: [Self] {
+    static var allValues: [Self] {
         return Array(self.cases())
     }
 }
 
 public extension Double {
-    public init?(_ string: String?) {
+    init?(_ string: String?) {
         guard let string = string,
         let double = Double(string) else {return nil }
         self = double
     }
 }
 public extension Int {
-    public init(_ bool: Bool) {
+    init(_ bool: Bool) {
         self = bool ? 1 : 0
     }
-    public init?(_ string: String?) {
+    init?(_ string: String?) {
         guard let string = string,
         let int = Int(string) else { return nil }
         self = int
@@ -341,7 +316,7 @@ public extension DateComponents {
 
 public extension Int {
     var array: [Int] {
-        return description.flatMap{Int(String($0))}
+        return description.compactMap{Int(String($0))}
     }
 }
 

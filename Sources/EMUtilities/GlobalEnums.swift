@@ -55,6 +55,7 @@ extension Notification.Name {
     public static let customDateRangeSelected = Notification.Name("custom_date_range_selected")
     public static let scrollingChildDismissed = Notification.Name("scrolling-child-dismissed")
     public static let searchSettingsSet = Notification.Name("search-settings-set")
+    public static let settingsLoaded = Notification.Name("settings-loaded")
     public static let cancelSearchOptions = Notification.Name("cancel-search-options")
     public static let zendeskSupportUpdated = Notification.Name("zendesk-support-updated")
     public static let dateRangeFinishedLoading = Notification.Name("date-range-finished-loading")

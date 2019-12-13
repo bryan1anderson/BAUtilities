@@ -12,6 +12,24 @@ import Nuke
 import CoreMedia
 import Closures
 
+public extension UIImage {
+  func resizeImage(targetSize: CGSize) -> UIImage {
+    let size = self.size
+    let widthRatio  = targetSize.width  / size.width
+    let heightRatio = targetSize.height / size.height
+    let newSize = widthRatio > heightRatio ?  CGSize(width: size.width * heightRatio, height: size.height * heightRatio) : CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+    let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+
+    UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+    self.draw(in: rect)
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+
+    return newImage!
+  }
+}
+
+
 public extension UIScrollView {
     static func createStackScrollView(viewController: UIViewController, stackView: UIStackView) -> UIScrollView {
         
@@ -276,38 +294,6 @@ public extension UIView {
     }
 }
 
-public struct ImageWrapper: Codable {
-    public let image: Image
-    
-    public enum CodingKeys: String, CodingKey {
-        case image
-    }
-    
-    // Image is a standard UI/NSImage conditional typealias
-    public init(image: Image) {
-        self.image = image
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let data = try container.decode(Data.self, forKey: CodingKeys.image)
-        guard let image = Image(data: data) else {
-            throw DataError.failedInit("Image Wrapper decoding failed")
-        }
-        
-        self.image = image
-    }
-    
-    // cache_toData() wraps UIImagePNG/JPEGRepresentation around some conditional logic with some whipped cream and sprinkles.
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        guard let data = image.pngData() ?? image.jpegData(compressionQuality: 1) else {
-            throw DataError.failedInit("Image Wrapper encoding failed")
-        }
-        
-        try container.encode(data, forKey: CodingKeys.image)
-    }
-}
 
 public extension UIStackView {
     var subStackViews: [UIStackView] {

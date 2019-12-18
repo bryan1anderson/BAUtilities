@@ -14,8 +14,6 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
-//    .package(url: "https://github.com/Adorkable-forkable/Closures/tree/SwiftPM.git", bra: "0.6")
         .package(url: "https://github.com/maniramezan/DateTools", .branch("swiftpm_support")),
         .package(url: "https://github.com/Adorkable-forkable/Closures", .branch("SwiftPM")),
         .package(url: "https://github.com/realm/realm-cocoa", from: "4.1.1"),
@@ -23,7 +21,6 @@ let package = Package(
         .package(url: "https://github.com/JohnSundell/Files", from: "3.1.0"),
         .package(url: "https://github.com/tonyarnold/Differ", .branch("master")),
         .package(url: "https://github.com/sersoft-gmbh/Zip", .branch("spm_support")),
-//        .package(url: "https://github.com/ninjaprox/NVActivityIndicatorView", from: "4.8.0"),
         .package(url: "https://github.com/marcosgriselli/ViewAnimator", from: "2.7.0"),
 
     ],

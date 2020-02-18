@@ -3,10 +3,10 @@
     "pins": [
       {
         "package": "Closures",
-        "repositoryURL": "https://github.com/Adorkable-forkable/Closures",
+        "repositoryURL": "https://github.com/vhesener/Closures",
         "state": {
-          "branch": "SwiftPM",
-          "revision": "e72d09afd0f71fe7ef5c454d0d5106d9b0471df5",
+          "branch": "master",
+          "revision": "d42d1cea00b05fa6778e2a0e1601028b47a32f79",
           "version": null
         }
       },

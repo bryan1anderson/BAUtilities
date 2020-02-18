@@ -8,6 +8,76 @@
 
 import Foundation
 
+public extension String {
+    var htmlToAttributedString: NSAttributedString? {
+        guard let data = data(using: .utf8) else { return NSAttributedString() }
+        do {
+            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } catch {
+            return NSAttributedString()
+        }
+    }
+    var htmlToString: String {
+        return htmlToAttributedString?.string ?? ""
+    }
+}
+
+public extension Date {
+    func timeAgoDisplay() -> String {
+
+        let calendar = Calendar.current
+        let minuteAgo = calendar.date(byAdding: .minute, value: -1, to: Date())!
+        let hourAgo = calendar.date(byAdding: .hour, value: -1, to: Date())!
+        let dayAgo = calendar.date(byAdding: .day, value: -1, to: Date())!
+        let weekAgo = calendar.date(byAdding: .day, value: -7, to: Date())!
+
+        if minuteAgo < self {
+            let diff = Calendar.current.dateComponents([.second], from: self, to: Date()).second ?? 0
+            if diff == 1 {
+                return "\(diff) second"
+            }
+            return "\(diff) seconds"
+        } else if hourAgo < self {
+            let diff = Calendar.current.dateComponents([.minute], from: self, to: Date()).minute ?? 0
+            if diff == 1 {
+                return "\(diff) minute"
+            }
+            return "\(diff) minutes"
+        } else if dayAgo < self {
+            let diff = Calendar.current.dateComponents([.hour], from: self, to: Date()).hour ?? 0
+            if diff == 1 {
+                return "\(diff) hour"
+            }
+            return "\(diff) hours"
+        } else if weekAgo < self {
+            let diff = Calendar.current.dateComponents([.day], from: self, to: Date()).day ?? 0
+            if diff == 1 {
+                return "\(diff) day"
+            }
+            return "\(diff) days"
+        }
+        let diff = Calendar.current.dateComponents([.weekOfYear], from: self, to: Date()).weekOfYear ?? 0
+        if diff == 1 {
+            return "\(diff) week"
+        }
+        return "\(diff) weeks"
+    }
+}
+
+public extension Sequence {
+    func group<U: Hashable>(by key: (Iterator.Element) -> U) -> [U:[Iterator.Element]] {
+        var categories: [U: [Iterator.Element]] = [:]
+        for element in self {
+            let key = key(element)
+            if case nil = categories[key]?.append(element) {
+                categories[key] = [element]
+            }
+        }
+        return categories
+    }
+}
+
+
 public func print(typeOf: Any...) {
     print(typeOf.map({String(describing: type(of: $0))}))
 }
@@ -50,31 +120,6 @@ public extension Int {
         return ordinalFormatter.string(from: NSNumber(value: self))
     }
 }
-
-public struct CodingWrapper<Wrapped>: Codable where Wrapped: NSCoding {
-    public var wrapped: Wrapped
-    
-    public init(_ wrapped: Wrapped) { self.wrapped = wrapped }
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        let data = try container.decode(Data.self)
-        guard let object = NSKeyedUnarchiver.unarchiveObject(with: data) else {
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "failed to unarchive an object")
-        }
-        guard let wrapped = object as? Wrapped else {
-            throw DecodingError.typeMismatch(Wrapped.self, DecodingError.Context(codingPath: container.codingPath, debugDescription: "unarchived object type was \(type(of: object))"))
-        }
-        self.wrapped = wrapped
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        let data = NSKeyedArchiver.archivedData(withRootObject: wrapped)
-        var container = encoder.singleValueContainer()
-        try container.encode(data)
-    }
-}
-
 
 public extension Int {
     var withCommas: String {
@@ -197,7 +242,7 @@ public protocol EnumCollection: Hashable {
 
 public extension EnumCollection {
     
-    public static func cases() -> AnySequence<Self> {
+    static func cases() -> AnySequence<Self> {
         return AnySequence { () -> AnyIterator<Self> in
             var raw = 0
             return AnyIterator {
@@ -211,23 +256,23 @@ public extension EnumCollection {
         }
     }
     
-    public static var allValues: [Self] {
+    static var allValues: [Self] {
         return Array(self.cases())
     }
 }
 
 public extension Double {
-    public init?(_ string: String?) {
+    init?(_ string: String?) {
         guard let string = string,
         let double = Double(string) else {return nil }
         self = double
     }
 }
 public extension Int {
-    public init(_ bool: Bool) {
+    init(_ bool: Bool) {
         self = bool ? 1 : 0
     }
-    public init?(_ string: String?) {
+    init?(_ string: String?) {
         guard let string = string,
         let int = Int(string) else { return nil }
         self = int
@@ -285,7 +330,7 @@ public extension DateComponents {
 
 public extension Int {
     var array: [Int] {
-        return description.flatMap{Int(String($0))}
+        return description.compactMap{Int(String($0))}
     }
 }
 

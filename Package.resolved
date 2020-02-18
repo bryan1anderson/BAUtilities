@@ -1,0 +1,88 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Closures",
+        "repositoryURL": "https://github.com/Adorkable-forkable/Closures",
+        "state": {
+          "branch": "SwiftPM",
+          "revision": "e72d09afd0f71fe7ef5c454d0d5106d9b0471df5",
+          "version": null
+        }
+      },
+      {
+        "package": "DateToolsSwift",
+        "repositoryURL": "https://github.com/maniramezan/DateTools",
+        "state": {
+          "branch": "mani_swiftpm",
+          "revision": "4df71163e824b75476edd853a57dd4e33e0e618b",
+          "version": null
+        }
+      },
+      {
+        "package": "Differ",
+        "repositoryURL": "https://github.com/tonyarnold/Differ",
+        "state": {
+          "branch": "master",
+          "revision": "05a3a4bdb4ed8c808fdc2fe0d5bdb03106600d22",
+          "version": null
+        }
+      },
+      {
+        "package": "Files",
+        "repositoryURL": "https://github.com/JohnSundell/Files",
+        "state": {
+          "branch": null,
+          "revision": "92b57bea0e737e7d92b5ff281f46ec2b59faf91c",
+          "version": "3.1.0"
+        }
+      },
+      {
+        "package": "PromiseKit",
+        "repositoryURL": "https://github.com/mxcl/PromiseKit",
+        "state": {
+          "branch": "v7",
+          "revision": "9f494dd1c312b1325d709853255558585c070c46",
+          "version": null
+        }
+      },
+      {
+        "package": "Realm",
+        "repositoryURL": "https://github.com/realm/realm-cocoa",
+        "state": {
+          "branch": null,
+          "revision": "913d59c6522e3007c7cbac3a8e9775abf72c054c",
+          "version": "4.3.2"
+        }
+      },
+      {
+        "package": "RealmCore",
+        "repositoryURL": "https://github.com/realm/realm-core",
+        "state": {
+          "branch": null,
+          "revision": "35662ff940e340bf630ad1d1d88acfc7af18bee6",
+          "version": "5.23.8"
+        }
+      },
+      {
+        "package": "ViewAnimator",
+        "repositoryURL": "https://github.com/marcosgriselli/ViewAnimator",
+        "state": {
+          "branch": null,
+          "revision": "17e7ba9e9c9e09bfd46086e0189b198fedc67847",
+          "version": "2.7.0"
+        }
+      },
+      {
+        "package": "Zip",
+        "repositoryURL": "https://github.com/sersoft-gmbh/Zip",
+        "state": {
+          "branch": "spm_support",
+          "revision": "626460ffdb6d0ebdace8c94aff5e49b7d23f13c2",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

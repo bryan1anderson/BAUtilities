@@ -15,7 +15,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/maniramezan/DateTools", .branch("mani_swiftpm")),
-        .package(url: "https://github.com/Adorkable-forkable/Closures", .branch("SwiftPM")),
+        .package(url: "https://github.com/vhesener/Closures", .branch("master")),
         .package(url: "https://github.com/realm/realm-cocoa", from: "4.1.1"),
         .package(url: "https://github.com/mxcl/PromiseKit", .branch("v7")),
         .package(url: "https://github.com/JohnSundell/Files", from: "3.1.0"),

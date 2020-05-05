@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/tonyarnold/Differ",
         "state": {
           "branch": "master",
-          "revision": "05a3a4bdb4ed8c808fdc2fe0d5bdb03106600d22",
+          "revision": "4c3eb4d76ad5c14075829397a5741b0badb08dce",
           "version": null
         }
       },
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/realm/realm-cocoa",
         "state": {
           "branch": null,
-          "revision": "913d59c6522e3007c7cbac3a8e9775abf72c054c",
-          "version": "4.3.2"
+          "revision": "fa43b8e2909334c79f233ce472332c136ca108da",
+          "version": "4.4.1"
         }
       },
       {
@@ -75,10 +75,10 @@
       },
       {
         "package": "Zip",
-        "repositoryURL": "https://github.com/sersoft-gmbh/Zip",
+        "repositoryURL": "https://github.com/marmelroy/Zip",
         "state": {
-          "branch": "spm_support",
-          "revision": "626460ffdb6d0ebdace8c94aff5e49b7d23f13c2",
+          "branch": "master",
+          "revision": "80b1c3005ee25b4c7ce46c4029ac3347e8d5e37e",
           "version": null
         }
       }

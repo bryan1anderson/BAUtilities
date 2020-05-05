@@ -11,6 +11,30 @@ import UIKit
 import CoreMedia
 import Closures
 
+public protocol PointerInteractionable: UIPointerInteractionDelegate {
+    
+}
+
+@available(iOS 13.4, *)
+public extension PointerInteractionable {
+    
+    func addPointerInteraction(on view: UIView) {
+        let pointerInteraction = UIPointerInteraction(delegate: self)
+        view.addInteraction(pointerInteraction)
+    }
+    
+    func _pointerInteraction(_ interaction: UIPointerInteraction, styleFor region: UIPointerRegion) -> UIPointerStyle? {
+        var pointerStyle: UIPointerStyle? = nil
+
+        if let interactionView = interaction.view {
+            let targetedPreview = UITargetedPreview(view: interactionView)
+            pointerStyle = UIPointerStyle(effect: UIPointerEffect.automatic(targetedPreview))
+        }
+        return pointerStyle
+    }
+
+}
+
 public extension UIView {
     func shake() {
         self.transform = CGAffineTransform(translationX: 20, y: 0)

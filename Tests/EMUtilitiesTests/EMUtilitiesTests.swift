@@ -1,12 +1,12 @@
 //import XCTest
-//@testable import EMUtilities
+//@testable import BAUtilities
 //
-//final class EMUtilitiesTests: XCTestCase {
+//final class BAUtilitiesTests: XCTestCase {
 //    func testExample() {
 //        // This is an example of a functional test case.
 //        // Use XCTAssert and related functions to verify your tests produce the correct
 //        // results.
-//        XCTAssertEqual(EMUtilities().text, "Hello, World!")
+//        XCTAssertEqual(BAUtilities().text, "Hello, World!")
 //    }
 //
 //    static var allTests = [

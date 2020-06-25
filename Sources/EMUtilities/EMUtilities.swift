@@ -1,3 +1,3 @@
-struct EMUtilities {
+struct BAUtilities {
     var text = "Hello, World!"
 }

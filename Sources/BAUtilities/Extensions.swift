@@ -8,7 +8,17 @@
 
 import Foundation
 import MapKit
+import Combine
 
+public extension Published.Publisher {
+    
+    /// Modifies the Publisher to use a scheduler that allows the value to be published after the value has been changed. This allows didSet semantics to be used
+    var didSet: AnyPublisher<Value, Never> {
+        // Any better ideas on how to get the didSet semantics?
+        // This works, but I'm not sure if it's ideal.
+        self.receive(on: RunLoop.main).eraseToAnyPublisher()
+    }
+}
 
 extension CLLocationCoordinate2D: Codable {
     public enum CodingKeys: String, CodingKey {

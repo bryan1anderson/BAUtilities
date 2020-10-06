@@ -20,7 +20,7 @@ let package = Package(
         .package(url: "https://github.com/JohnSundell/Files", from: "3.1.0"),
         .package(url: "https://github.com/tonyarnold/Differ", .branch("master")),
         .package(url: "https://github.com/marmelroy/Zip", .branch("master")),
-        .package(url: "https://github.com/marcosgriselli/ViewAnimator", from: "2.7.0"),
+        .package(url: "https://github.com/marcosgriselli/ViewAnimator", from: "3.0.1"),
 
     ],
     targets: [
